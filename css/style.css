@@ -1,0 +1,32 @@
+* {
+  padding-left: 10px;
+}
+
+h2 {
+  color: black;
+  font-size: 2rem;
+  text-align: center;
+}
+
+h3 {
+  color: blue;
+  font-size: 2rem;
+  text-align: center;
+/*  text-decoration: underline; */
+}
+
+h4 {
+  color: blue;
+  font-size: 2rem;
+  text-align: center;
+  background-color: yellow;
+/*  text-decoration: underline; */
+}
+
+a {
+  border: 1px;
+  padding: 5px;
+  border-radius: 1pc;
+  background-color: lightgreen;
+  color: black;
+}
