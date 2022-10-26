@@ -23,24 +23,21 @@ h4 {
 /*  text-decoration: underline; */
 }
 
-a {
-  border: 1px;
-  padding: 5px;
-  border-radius: 1pc;
-  background-color: lightgreen;
-  color: black;
+.item {
+  display: inline;
 }
 
-.diego {
-  display: inline-block;
+.table tbody#table tr td {
+  vertical-align: middle;
+  display: table-cell;
 }
 
-.nuevaClase {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-#tablaDos {
-  display: block;
+a.borrarCotizacion {
+  background-color: rgb(211, 100, 100);
+  border-radius: 50%;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
 }

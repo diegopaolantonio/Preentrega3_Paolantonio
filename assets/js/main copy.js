@@ -15,45 +15,6 @@ var cotizacion = {
 
 var cotizacionesRealizadas = [];
 
-function escribirHistorico() {
-  let infoReferencia = document.querySelector("#infoReferencia"),
-    infoTrabajo = document.querySelector("#infoTrabajo"),
-    infoHerramientas = document.querySelector("#infoHerramientas"),
-    infoPersonas = document.querySelector("#infoPersonas"),
-    infoDias = document.querySelector("#infoDias"),
-    infoHoras = document.querySelector("#infoHoras"),
-    infoCostoTotal = document.querySelector("#infoCostoTotal");
-
-    let mensajeD = document.querySelector("#alerta");
-
-    console.log(cotizacionesRealizadas.length);
-
-  infoReferencia.innerHTML = `${
-    cotizacionesRealizadas[cotizacionesRealizadas.length - 1].referencia
-  }`;
-  infoTrabajo.innerHTML = `${
-    cotizacionesRealizadas[cotizacionesRealizadas.length - 1].trabajo
-  }`;
-  infoHerramientas.innerHTML = `${
-    cotizacionesRealizadas[cotizacionesRealizadas.length - 1].herramientas
-  }`;
-  infoPersonas.innerHTML = `${
-    cotizacionesRealizadas[cotizacionesRealizadas.length - 1].personas
-  }`;
-  infoDias.innerHTML = `${
-    cotizacionesRealizadas[cotizacionesRealizadas.length - 1].dias
-  }`;
-  infoHoras.innerHTML = `${
-    cotizacionesRealizadas[cotizacionesRealizadas.length - 1].horas
-  }`;
-  infoCostoTotal.innerHTML = `${
-    cotizacionesRealizadas[cotizacionesRealizadas.length - 1].costoTotal
-  }`;
-
-  // escondemos el mensaje
-  mensajeD.style.display = "block";
-}
-
 function costoHora(val) {
   let precio = 0;
   if (val == "Programador") {
@@ -81,10 +42,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
   cotizacionesRealizadas = JSON.parse(localStorage.getItem("cotizacion")) || [];
   agregarCotizacion();
-
-  if (cotizacionesRealizadas.length > 0) {
-  escribirHistorico();
-  }
 
   const formatearSiNo = (val) => {
     if (val == "si" || val == "SI" || val == "sI" || val == "Si") {
@@ -192,9 +149,9 @@ window.addEventListener("DOMContentLoaded", function () {
   // Seleccionamos el formulario
   let formulario = document.querySelector("#formulario");
   // mensaje con los datos del formulario
-//  let mensajeDatos = document.querySelector("#alerta");
+  let mensajeDatos = document.querySelector("#alerta");
   // escondemos el mensaje
-//  mensajeDatos.style.display = "none";
+  mensajeDatos.style.display = "none";
 
   // Input de error
   let error_referencia = document.querySelector("#error_referencia");
@@ -222,6 +179,13 @@ window.addEventListener("DOMContentLoaded", function () {
     let horas = document.querySelector("#horas").value;
 
     if (referencia && trabajo && herramientas && personas && dias && horas) {
+      let infoReferencia = document.querySelector("#infoReferencia"),
+        infoTrabajo = document.querySelector("#infoTrabajo"),
+        infoHerramientas = document.querySelector("#infoHerramientas"),
+        infoPersonas = document.querySelector("#infoPersonas"),
+        infoDias = document.querySelector("#infoDias"),
+        infoHoras = document.querySelector("#infoHoras"),
+        infoCostoTotal = document.querySelector("#infoCostoTotal");
 
       costoTotal = dias * precioHora * precioHoraHerr * personas * horas;
       console.log(costoTotal);
@@ -243,51 +207,19 @@ window.addEventListener("DOMContentLoaded", function () {
       cotizaciones.push(cotizacion);
 
       cotizacionesRealizadas = [...cotizacionesRealizadas, ...cotizaciones];
+
+      //      document.location.reload ();
+
+      infoReferencia.innerHTML = `${cotizacion.referencia}`;
+      infoTrabajo.innerHTML = `${cotizacion.trabajo}`;
+      infoHerramientas.innerHTML = `${cotizacion.herramientas}`;
+      infoPersonas.innerHTML = `${cotizacion.personas}`;
+      infoDias.innerHTML = `${cotizacion.dias}`;
+      infoHoras.innerHTML = `${cotizacion.horas}`;
+      infoCostoTotal.innerHTML = `${cotizacion.costoTotal}`;
+      mensajeDatos.style.display = "block";
 
       agregarCotizacion();
-
-      console.log(cotizacion);
-      console.log(cotizaciones);
-      console.log(cotizacionesRealizadas);
-    } else {
-      alert("Debe llenar los campos");
-    }
-  });
-
-  formulario.addEventListener("submit", function (e) {
-    e.preventDefault();
-    // guardamos datos que ingresamos en los input
-    let referencia = document.querySelector("#referencia").value;
-    let trabajo = document.querySelector("#trabajo").value;
-    let herramientas = document.querySelector("#herramientas").value;
-    let personas = document.querySelector("#personas").value;
-    let dias = document.querySelector("#dias").value;
-    let horas = document.querySelector("#horas").value;
-
-    if (referencia && trabajo && herramientas && personas && dias && horas) {
-
-      costoTotal = dias * precioHora * precioHoraHerr * personas * horas;
-      console.log(costoTotal);
-      console.log(precioHoraHerr);
-
-      const generarId = () => Math.random().toString(36).substring(2, 18);
-
-      cotizacion.id = generarId();
-      cotizacion.referencia = referencia;
-      cotizacion.trabajo = trabajo;
-      cotizacion.herramientas = herramientas;
-      cotizacion.personas = personas;
-      cotizacion.dias = dias;
-      cotizacion.horas = horas;
-      cotizacion.costoTotal = costoTotal;
-
-      let cotizaciones = [];
-
-      cotizaciones.push(cotizacion);
-
-      cotizacionesRealizadas = [...cotizacionesRealizadas, ...cotizaciones];
-
-      document.location.reload();
 
       console.log(cotizacion);
       console.log(cotizaciones);
@@ -301,19 +233,19 @@ window.addEventListener("DOMContentLoaded", function () {
 function agregarCotizacion() {
   tabla.innerHTML = ``;
   cotizacionesRealizadas.forEach((element, index) => {
-    tabla.innerHTML += `<tr>
-             <td class="text-center">${element.referencia}</td>
+    tabla.innerHTML += `<div class="tablaDos">
+             <tr>
+             <td class="text-center">${element.referencia}"</td>
+             <td class="text-center">${element.id}"</td>
              <td class="text-center">${element.trabajo}</td>
-             <td class="text-center">${element.herramientas}</td>
-
-             <td class="text-center">USD${element.costoTotal}</td>
-             <td class="text-center"><a href="#" id="${element.id}" class="borrarCotizacion" data-id="1">X</a></td>
+             <td class="text-center">${element.costoTotal}</td>
+             <td class="text-center"><a href="#" id="${element.id}" class="borrar-cotizacion" data-id="1">X</a></td>
            </tr>
            </div>`;
   });
 
   // Seleccionamos el boton eliminar
-  let buttonDelete = document.querySelectorAll(".borrarCotizacion");
+  let buttonDelete = document.querySelectorAll(".borrar-cotizacion");
 
   // Lo recorremos
   buttonDelete.forEach((element) => {
