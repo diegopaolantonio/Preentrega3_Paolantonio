@@ -20,14 +20,21 @@
   <body>
     <h1>Bienvenido al cotizador de costos de obra de EXPERTO INGENIERIA</h1>
     <p>
-      Aqui podra calcular el costo total de mano de obra de programacion,
+      Aqui podra calcular el costo total de nuestra mano de obra de programacion,
       electicista y asesistencia tecnica,
     </p>
-    <p>
-      Los datos que necesitara son, que personal necesita, cantidad de personas,
-      cantidad de dias y jornada laboral.
-    </p>
+<!--    <p class="mb-0">Los datos que necesitara son:</p>
+    <ul class="informacionParaCotizar">
+      <li>Que personal necesita? Programador/Electricista/Asistencia Tecnica</li>
+      <li>Computadora/herramientas propias?</li>
+      <li>Cantidad de personas?</li>
+      <li>Cantidad de dias?</li>
+      <li>Cantidad de horas de jornada laboral?</li>
+    </ul>
+-->
+
     <script src="assets/js/main.js"></script>
+
     <p>
       Muchas gracias por elegirnos, lo esperamos pronto nuevamente. Saludos
       cordiales.
@@ -46,7 +53,7 @@
         </div>
 
         <div class="form-group">
-          <label for="trabajo">Trabajo (Programador/Electricista/Asistencia Tecnica)</label>
+          <label for="trabajo">Tipo de trabajo (Programador/Electricista/Asistencia Tecnica)</label>
           <input type="text" class="form-control" id="trabajo" />
           <div
             class="alert alert-danger my-2"
@@ -56,7 +63,7 @@
         </div>
 
         <div class="form-group">
-          <label for="herramientas">Herramientas (si/no)</label>
+          <label for="herramientas">Computadora/herramientas propias? (Si/No)</label>
           <input type="text" class="form-control" id="herramientas" />
           <div
             class="alert alert-danger my-2"
@@ -66,7 +73,7 @@
         </div>
 
         <div class="form-group">
-          <label for="personas">Personas que necesita</label>
+          <label for="personas">Cantidad de personas</label>
           <input type="number" class="form-control" id="personas" />
           <div
             class="alert alert-danger my-2"
@@ -76,7 +83,7 @@
         </div>
 
         <div class="form-group">
-          <label for="dias">Dias a trabajar</label>
+          <label for="dias">Cantidad de dias a trabajar</label>
           <input type="number" class="form-control" id="dias" />
           <div
             class="alert alert-danger my-2"
@@ -86,7 +93,7 @@
         </div>
 
         <div class="form-group">
-          <label for="horas">Horas promedio de la jornada</label>
+          <label for="horas">Cantidad de horas promedio de la jornada</label>
           <input type="number" class="form-control" id="horas" />
           <div
             class="alert alert-danger my-2"
