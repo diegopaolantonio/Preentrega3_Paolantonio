@@ -30,3 +30,17 @@ a {
   background-color: lightgreen;
   color: black;
 }
+
+.diego {
+  display: inline-block;
+}
+
+.nuevaClase {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+#tablaDos {
+  display: block;
+}
