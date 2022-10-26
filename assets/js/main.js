@@ -24,9 +24,9 @@ function escribirHistorico() {
     infoHoras = document.querySelector("#infoHoras"),
     infoCostoTotal = document.querySelector("#infoCostoTotal");
 
-    let mensajeD = document.querySelector("#alerta");
+  let mensajeD = document.querySelector("#alerta");
 
-    console.log(cotizacionesRealizadas.length);
+  console.log(cotizacionesRealizadas.length);
 
   infoReferencia.innerHTML = `${
     cotizacionesRealizadas[cotizacionesRealizadas.length - 1].referencia
@@ -56,13 +56,21 @@ function escribirHistorico() {
 
 function costoHora(val) {
   let precio = 0;
-  if (val == "Programador") {
+  if (val == "programador" || val == "Programador" || val == "PROGRAMADOR") {
     console.log(1);
     precio = 20;
-  } else if (val == "Electricista") {
+  } else if (
+    val == "electricista" ||
+    val == "Electricista" ||
+    val == "ELECTRICISTA"
+  ) {
     console.log(2);
     precio = 15;
-  } else if (val == "Asistencia Tecnica") {
+  } else if (
+    val == "asistencia tecnica" ||
+    val == "Asistencia Tecnica" ||
+    val == "ASISTENCIA TECNICA"
+  ) {
     console.log(3);
     precio = 14;
   }
@@ -83,7 +91,7 @@ window.addEventListener("DOMContentLoaded", function () {
   agregarCotizacion();
 
   if (cotizacionesRealizadas.length > 0) {
-  escribirHistorico();
+    escribirHistorico();
   }
 
   const formatearSiNo = (val) => {
@@ -115,7 +123,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // Validamos el campo referencia
   referencia.addEventListener("input", (e) => {
-    let validaReferencia = checkString(e.target.value);
+    /*    let validaReferencia = checkString(e.target.value);
     if (validaReferencia) {
       error_referencia.style.display = "none";
       error_referencia.innerHTML = ``;
@@ -123,31 +131,40 @@ window.addEventListener("DOMContentLoaded", function () {
       error_referencia.style.display = "block";
       error_referencia.innerHTML = `Debe ingresar numeros o letras`;
     }
+  */
   });
 
   // Validamos el campo trabajo
   trabajo.addEventListener("input", (e) => {
     let validaTrabajo = checkString(e.target.value);
     precioHora = costoHora(e.target.value);
-    if (validaTrabajo) {
+    if (
+      validaTrabajo &&
+      (precioHora == 20 || precioHora == 15 || precioHora == 14)
+    ) {
       error_trabajo.style.display = "none";
       error_trabajo.innerHTML = ``;
     } else {
       error_trabajo.style.display = "block";
-      error_trabajo.innerHTML = `Debe ingresar alguna opcion`;
+      error_trabajo.innerHTML = `Debe ingrese opcion correcta`;
     }
   });
 
   // Validamos el campo herramientas
   herramientas.addEventListener("input", (e) => {
     let validaHerramientas = checkString(e.target.value);
-    validaHerramientas = formatearSiNo(e.target.value);
-    if (validaHerramientas == "Si" || validaHerramientas == "No") {
-      precioHoraHerr = 1.25;
-      error_herramientas.style.display = "none";
-      error_herramientas.innerHTML = ``;
+    if (validaHerramientas) {
+      validaHerramientas = formatearSiNo(e.target.value);
+      if (validaHerramientas == "Si") {
+        precioHoraHerr = 1.25;
+        error_herramientas.style.display = "none";
+        error_herramientas.innerHTML = ``;
+      } else if (validaHerramientas == "No") {
+        precioHoraHerr = 1;
+        error_herramientas.style.display = "none";
+        error_herramientas.innerHTML = ``;
+      }
     } else {
-      precioHoraHerr = 1;
       error_herramientas.style.display = "block";
       error_herramientas.innerHTML = `Debe ingresar alguna opcion`;
     }
@@ -191,10 +208,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // Seleccionamos el formulario
   let formulario = document.querySelector("#formulario");
-  // mensaje con los datos del formulario
-//  let mensajeDatos = document.querySelector("#alerta");
-  // escondemos el mensaje
-//  mensajeDatos.style.display = "none";
 
   // Input de error
   let error_referencia = document.querySelector("#error_referencia");
@@ -221,8 +234,7 @@ window.addEventListener("DOMContentLoaded", function () {
     let dias = document.querySelector("#dias").value;
     let horas = document.querySelector("#horas").value;
 
-    if (referencia && trabajo && herramientas && personas && dias && horas) {
-
+    if (referencia && precioHora && herramientas && personas && dias && horas) {
       costoTotal = dias * precioHora * precioHoraHerr * personas * horas;
       console.log(costoTotal);
       console.log(precioHoraHerr);
@@ -264,8 +276,7 @@ window.addEventListener("DOMContentLoaded", function () {
     let dias = document.querySelector("#dias").value;
     let horas = document.querySelector("#horas").value;
 
-    if (referencia && trabajo && herramientas && personas && dias && horas) {
-
+    if (referencia && precioHora && herramientas && personas && dias && horas) {
       costoTotal = dias * precioHora * precioHoraHerr * personas * horas;
       console.log(costoTotal);
       console.log(precioHoraHerr);
@@ -299,8 +310,10 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 function agregarCotizacion() {
+  let totalCotizado = 0;
   tabla.innerHTML = ``;
   cotizacionesRealizadas.forEach((element, index) => {
+    totalCotizado += element.costoTotal;
     tabla.innerHTML += `<tr>
              <td class="text-center">${element.referencia}</td>
              <td class="text-center">${element.trabajo}</td>
@@ -308,9 +321,12 @@ function agregarCotizacion() {
 
              <td class="text-center">USD${element.costoTotal}</td>
              <td class="text-center"><a href="#" id="${element.id}" class="borrarCotizacion" data-id="1">X</a></td>
-           </tr>
-           </div>`;
+           </tr>`;
   });
+
+  tabla.innerHTML += `<tr>
+  <td class="text-center">Total Cotizado: USD${totalCotizado}</td>
+  </tr>`;
 
   // Seleccionamos el boton eliminar
   let buttonDelete = document.querySelectorAll(".borrarCotizacion");
